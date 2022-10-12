@@ -43,12 +43,16 @@
                 <div class="col-lg-8">
                     <!-- Featured blog post-->
                     <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                        {% if last.image %}
+                        <a href="#!"><img class="card-img-top" src="{{last.image.url}}" alt="..." /></a>
+                        {% else %}
+                             <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                        {% endif %}
                         <div class="card-body">
                             <div class="small text-muted">January 1, 2022</div>
                             <h2 class="card-title">{{last.title|title}}</h2>
                             <p class="card-text">{{last.content|truncatechars:28}}</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
+                            <a class="btn btn-primary" href="{% url 'detail' last.id %}">Read more →</a>
                         </div>
                     </div>
                     <!-- Nested row for non-featured blog posts-->
@@ -57,12 +61,16 @@
                             {% for i in rec %}
                             <!-- Blog post-->
                             <div class="card mb-4">
-                                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                                {% if i.image %}
+                                <img class="card-img-top" src="{{i.image.url}}" alt="..." />
+                                {% else %}
+                                  <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
+                                {% endif %}
                                 <div class="card-body">
                                     <div class="small text-muted">January 1, 2022</div>
                                     <h2 class="card-title h4">{{i.title|title}}</h2>
                                     <p class="card-text">{{i.content}}</p>
-                                    <a class="btn btn-primary" href="#!">Read more →</a>
+                                    <a class="btn btn-primary" href="{% url 'detail' i.id %}">Read more →</a>
                                 </div>
                             </div>
                             {% endfor %}
