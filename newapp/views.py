@@ -8,12 +8,20 @@ def index(request):
 
 def create_post(request):
     if request.method=='POST':
-        form=Post_form(request.POST)
+        form=Post_form(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return redirect("index")
     else:
         form=Post_form()
-        records=Post.objects.all()
 
     return render(request,'post.html',{'form':form})
+
+def detail(request,x):
+    r=Post.objects.get(id=x)
+    return render(request,'detail.html',{'s':r})
+
+def delete(request,x):
+    r = Post.objects.get(id=x)
+    r.delete()
+    return redirect("index")
